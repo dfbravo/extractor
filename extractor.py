@@ -204,8 +204,8 @@ class ExtractionItem(object):
     """
 
     # Maximum recursion breadth and depth
-    RECURSION_BREADTH = 5
-    RECURSION_DEPTH = 3
+    RECURSION_BREADTH = 999
+    RECURSION_DEPTH = 8
 
     def __init__(self, extractor, path, depth, tag=None):
         # Temporary directory
@@ -411,8 +411,8 @@ class ExtractionItem(object):
         try:
             self.printf(">> Tag: %s" % self.tag)
             self.printf(">> Temp: %s" % self.temp)
-            self.printf(">> Status: Kernel: %s, Rootfs: %s, Do_Kernel: %s, \
-                Do_Rootfs: %s" % (self.get_kernel_status(),
+            self.printf((">> Status: Kernel: %s, Rootfs: %s, Do_Kernel: %s, "
+                "Do_Rootfs: %s") % (self.get_kernel_status(),
                                   self.get_rootfs_status(),
                                   self.extractor.do_kernel,
                                   self.extractor.do_rootfs))
@@ -606,7 +606,7 @@ class ExtractionItem(object):
                     unix = Extractor.io_find_rootfs(module.extractor.directory)
 
                     if not unix[0]:
-                        self.printf(">>>> Extraction failed!")
+                        self.printf(">>>> Extraction failed! Found filesystem, but it's not FHS.")
                         return False
 
                     self.printf(">>>> Found Linux filesystem in %s!" % unix[1])
